@@ -4,9 +4,9 @@ LABEL Maintainer="Florian Kroeber <fk@mxu.de>" \
 
 # Install packages
 RUN apk add --update \
---repository http://dl-cdn.alpinelinux.org/alpine/3.5/main \
---repository http://dl-cdn.alpinelinux.org/alpine/3.5/community \
---no-cache php7 php7-dev php7-fpm php7-sockets php7-xdebug php7-xml php7-json nginx supervisor freetds-dev php7-pdo_dblib
+--repository http://dl-cdn.alpinelinux.org/alpine/v3.5/main \
+--repository http://dl-cdn.alpinelinux.org/alpine/v3.5/community \
+--no-cache php7 php7-dev php7-session php7-fpm php7-sockets php7-xdebug php7-xml php7-json nginx supervisor freetds-dev php7-pdo_dblib
 
 
 
