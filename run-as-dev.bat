@@ -1,1 +1,1 @@
-docker run -i -t -p 8080:80 -v /c/Users/flok/Documents/A_SCRUM/training/src:/var/www/html -e DEV=1  upline/training:latest /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+docker run -i -t -p 8080:80 -v %cd%/src:/var/www/html -e DEV=1  upline/training:latest /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
