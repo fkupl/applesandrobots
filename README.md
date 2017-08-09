@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Training Ooverview</title>
 </head>
 <body>
 <h1>Summary</h1>
