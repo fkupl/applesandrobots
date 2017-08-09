@@ -17,11 +17,11 @@ if (!isset($_SESSION["robots"]) || isset($_GET["restart"])) {
     $playerPos["y"] = rand(0, $max);
 
     for ($i = 0; $i < $robots; $i++) {
-        $var = 1+1;
         $robot[$i]["x"] = rand(0, $max);
         $robot[$i]["y"] = rand(0, $max);
 
         if ($robot[$i]["x"] == $playerPos["x"] && $robot[$i]["y"] == $playerPos["y"]) {
+            unset($robot[$i]);
             $i--;
         }
     }
