@@ -73,7 +73,7 @@ if (!isset($_SESSION["robots"]) || isset($_GET["restart"])) {
             echo '<td style="height:' . $width . 'px;width:' . $width . 'px;">';
             if ($i == $playerPos["x"] && $j == $playerPos["y"]) {
                 $appleset = true;
-                echo '<img style="width:' . $width . 'px;" src="../ressources/jenna.png"/>';
+                echo '<img style="width:' . $width . 'px;" src="../ressources/player.png"/>';
             }
 
             foreach ($robot as $key => $value) {
