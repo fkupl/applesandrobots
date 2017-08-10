@@ -1,21 +1,33 @@
 <?php session_start(); ?>
 <html>
 <head>
-<style>
-.center {
-    width:100%;
-    height:100%;
-  }
-  table {
-    margin: 0 auto; /* or margin: 0 auto 0 auto */
-  }
-  .tdstyle {
-	  border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;
-  }
-  .inputstyle {
-	  height: 49px; width: 49px; background:black; border:0 none; cursor:pointer;
-  }
-</style></head>
+    <style>
+        .center {
+            width: 100%;
+            height: 100%;
+        }
+
+        table {
+            margin: 0 auto; /* or margin: 0 auto 0 auto */
+        }
+
+        .tdstyle {
+            border: 1px solid #0063dc;
+            height: 55px;
+            width: 55px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .inputstyle {
+            height: 49px;
+            width: 49px;
+            background: black;
+            border: 0 none;
+            cursor: pointer;
+        }
+    </style>
+</head>
 <body style="background-color: black; text-align: center; color: white;">
 <span><img src="aliens.png"</span>
 
@@ -51,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $_SESSION["runningCounter"] = $_SESSION["runningCounter"] + 1;
 
-    (int) $position = explode(".", $_POST['position']);
+    $position = explode(".", $_POST['position']);
 
     // Ripley Movement
     if ($ripleypos["x"] < $position[0]) {
@@ -73,64 +85,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Alien  Movement
-    if ($ripleypos["x"] <= $alienpos["x"]) {
+    if ($ripleypos["x"] < $alienpos["x"]) {
         $alienpos["x"] = $alienpos["x"] - 1;
         $_SESSION["alienpos"] = $alienpos;
     }
 
-    if ($ripleypos["x"] >= $alienpos["x"]) {
+    if ($ripleypos["x"] > $alienpos["x"]) {
         $alienpos["x"] = $alienpos["x"] + 1;
         $_SESSION["alienpos"] = $alienpos;
     }
 
-    if ($ripleypos["y"] <= $alienpos["y"]) {
+    if ($ripleypos["y"] < $alienpos["y"]) {
         $alienpos["y"] = $alienpos["y"] - 1;
         $_SESSION["alienpos"] = $alienpos;
     }
 
-    if ($ripleypos["y"] >= $alienpos["y"]) {
+    if ($ripleypos["y"] > $alienpos["y"]) {
         $alienpos["y"] = $alienpos["y"] + 1;
         $_SESSION["alienpos"] = $alienpos;
     }
 
     // Alien2  Movement
-    if ($ripleypos["x"] <= $alienpos2["x"]) {
+    if ($ripleypos["x"] < $alienpos2["x"]) {
         $alienpos2["x"] = $alienpos2["x"] - 1;
         $_SESSION["alienpos2"] = $alienpos2;
     }
 
-    if ($ripleypos["x"] >= $alienpos2["x"]) {
+    if ($ripleypos["x"] > $alienpos2["x"]) {
         $alienpos2["x"] = $alienpos2["x"] + 1;
         $_SESSION["alienpos2"] = $alienpos2;
     }
 
-    if ($ripleypos["y"] <= $alienpos2["y"]) {
+    if ($ripleypos["y"] < $alienpos2["y"]) {
         $alienpos2["y"] = $alienpos2["y"] - 1;
         $_SESSION["alienpos2"] = $alienpos2;
     }
 
-    if ($ripleypos["y"] >= $alienpos2["y"]) {
+    if ($ripleypos["y"] > $alienpos2["y"]) {
         $alienpos2["y"] = $alienpos2["y"] + 1;
         $_SESSION["alienpos2"] = $alienpos2;
     }
 
     // Alien3  Movement
-    if ($ripleypos["x"] <= $alienpos3["x"]) {
+    if ($ripleypos["x"] < $alienpos3["x"]) {
         $alienpos3["x"] = $alienpos3["x"] - 1;
         $_SESSION["alienpos3"] = $alienpos3;
     }
 
-    if ($ripleypos["x"] >= $alienpos3["x"]) {
+    if ($ripleypos["x"] > $alienpos3["x"]) {
         $alienpos3["x"] = $alienpos3["x"] + 1;
         $_SESSION["alienpos3"] = $alienpos3;
     }
 
-    if ($ripleypos["y"] <= $alienpos3["y"]) {
+    if ($ripleypos["y"] < $alienpos3["y"]) {
         $alienpos3["y"] = $alienpos3["y"] - 1;
         $_SESSION["alienpos3"] = $alienpos3;
     }
 
-    if ($ripleypos["y"] >= $alienpos3["y"]) {
+    if ($ripleypos["y"] > $alienpos3["y"]) {
         $alienpos3["y"] = $alienpos3["y"] + 1;
         $_SESSION["alienpos3"] = $alienpos3;
     }
@@ -144,18 +156,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         session_regenerate_id();
         $_SESSION["NEWID"] = session_id();
         $_SESSION["ripleypos"] = null;
-
     }
 
-    if($ripleypos == $alienpos || $ripleypos == $alienpos2 || $ripleypos == $alienpos3)
-    {
-		if($ripleypos == $alienpos)
-			$alienkiller = "Alien";
-		if($ripleypos == $alienpos2)
-			$alienkiller = "Alien 2";
-		if($ripleypos == $alienpos3)
-			$alienkiller = "Alien 3";	
-		
+    if ($ripleypos == $alienpos || $ripleypos == $alienpos2 || $ripleypos == $alienpos3) {
+        if ($ripleypos == $alienpos) {
+            $alienkiller = "Alien";
+        }
+
+        if ($ripleypos == $alienpos2) {
+            $alienkiller = "Alien 2";
+        }
+
+        if ($ripleypos == $alienpos3) {
+            $alienkiller = "Alien 3";
+        }
+
         echo "<div style=\"color: #0063dc; font-size: 20px; text-align:center;\">YOU DIED! Killed by $alienkiller - New Game start by click!<div>";
         $_SESSION["runningCounter"] = 0;
         session_regenerate_id();
@@ -167,38 +182,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 ?>
 <div class="center">
-<form method="post">
-    <table>
-        <?php
+    <form method="post">
+        <table>
+            <?php
+            for ($height = 0; $height < HEIGHT; $height++) {
+                echo "<tr>";
+                for ($width = 0; $width < WIDTH; $width++) {
 
-        for ($height = 0; $height < HEIGHT; $height++) {
-            echo "<tr>";
-            for ($width = 0; $width < WIDTH; $width++) {
-
-			if ($ripleypos == $alienpos || $ripleypos == $alienpos2 || $ripleypos == $alienpos3) {
-					echo "<td class=\"tdstyle\"><input class=\"inputstyle\" value='$width.$height' type=\"submit\" name=\"position\" /></td>" . PHP_EOL;
-				}
-                elseif ($ripleypos["x"] == $width && $ripleypos["y"] == $height) {
-                    echo "<td class=\"tdstyle\"><img src=\"$ripley\"/></td>" . PHP_EOL;
-                } elseif ($alienpos["x"] == $width && $alienpos["y"] == $height) {
-                    echo "<td class=\"tdstyle\"><img src=\"$alien\"/></td>" . PHP_EOL;
-                } elseif ($alienpos2["x"] == $width && $alienpos2["y"] == $height) {
-                    echo "<td class=\"tdstyle\"><img src=\"$alien2\"/></td>" . PHP_EOL;
-                } elseif ($alienpos3["x"] == $width && $alienpos3["y"] == $height) {
-                    echo "<td class=\"tdstyle\"><img src=\"$alien3\"/></td>" . PHP_EOL;
-                } 
-				else {
-                    $position = array('newx' => $width, 'newy' => $height);
-                    echo "<td class=\"tdstyle\"><input class=\"inputstyle\" value='$width.$height' type=\"submit\" name=\"position\" /></td>". PHP_EOL;
+                    if ($ripleypos == $alienpos || $ripleypos == $alienpos2 || $ripleypos == $alienpos3) {
+                        echo "<td class=\"tdstyle\"><input class=\"inputstyle\" value='$width.$height' type=\"submit\" name=\"position\" /></td>" . PHP_EOL;
+                    } elseif ($ripleypos["x"] == $width && $ripleypos["y"] == $height) {
+                        echo "<td class=\"tdstyle\"><img src=\"$ripley\"/></td>" . PHP_EOL;
+                    } elseif ($alienpos["x"] == $width && $alienpos["y"] == $height) {
+                        echo "<td class=\"tdstyle\"><img src=\"$alien\"/></td>" . PHP_EOL;
+                    } elseif ($alienpos2["x"] == $width && $alienpos2["y"] == $height) {
+                        echo "<td class=\"tdstyle\"><img src=\"$alien2\"/></td>" . PHP_EOL;
+                    } elseif ($alienpos3["x"] == $width && $alienpos3["y"] == $height) {
+                        echo "<td class=\"tdstyle\"><img src=\"$alien3\"/></td>" . PHP_EOL;
+                    } else {
+                        echo "<td class=\"tdstyle\"><input class=\"inputstyle\" value='$width.$height' type=\"submit\" name=\"position\" /></td>" . PHP_EOL;
+                    }
                 }
-
-
+                echo "</tr>";
             }
-            echo "</tr>";
-        }
-        ?>
-    </table>
-</form>
+            ?>
+        </table>
+    </form>
 </div>
 </body>
 
