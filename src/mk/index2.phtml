@@ -1,38 +1,35 @@
+<?php session_start();?>
 <html>
 <head></head>
-<body style="background-color: black; text-align: center">
+<body style="background-color: white; text-align: center">
 <span><img src="aliens.png"</span>
 
 <?php
-session_start();
+
 
 // Some data ;)sss
-const FIELDS = 100;s
+const FIELDS = 100;
 
 const WIDTH = 15;
 const HEIGHT = 15;
-s
+
+
 $alien = 'alien.png';
 $ripley = 'ripley.png';
 $i = 0;
 
-
-// Set Ripley's and Alien's first position, if there is not session entry
-if (!isset($_SESSION["ripleypos"]) || ($_SESSION["ID"] != $_SESSION["NEWID"])) {
+// Set Ripley's and Alien's first position, if there is not session entry || ($_SESSION["ID"] != $_SESSION["NEWID"])
+if (!isset($_SESSION["ripleypos"])) {
     $_SESSION["ripleypos"] = $ripleypos = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
     $_SESSION["alienpos"] = $alienpos = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
     $_SESSION["alienpos2"] = $alienpos2 = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
     $_SESSION["alienpos3"] = $alienpos3 = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
 
-    /*    $_SESSION["ripleypos"] = $ripleypos = rand(0, COLS - 1);
-        $_SESSION["alienpos"] = $alienpos = rand(0, COLS - 1);
-        $_SESSION["alienpos2"] = $alienpos2 = rand(0, COLS - 1);
-        $_SESSION["alienpos3"] = $alienpos3 = rand(0, COLS - 1);*/
-
     $_SESSION["runningCounter"] = 0;
     $_SESSION["ID"] = session_id();
 }
-// Positions
+var_dump($ripleypos, $alienpos);
+// Positionsss
 $ripleypos = $_SESSION["ripleypos"];
 $alienpos = $_SESSION["alienpos"];
 $alienpos2 = $_SESSION["alienpos2"];
@@ -42,7 +39,9 @@ $alienpos3 = $_SESSION["alienpos3"];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION["runningCounter"] = $_SESSION["runningCounter"] + 1;
 
-    if ($_SESSION["runningCounter"] === 5 && ($ripleypos != $alienpos || $ripleypos != $alienpos2 || $ripleypos != $alienpos3)) {
+    var_dump($_POST['alter']);
+
+    /*if ($_SESSION["runningCounter"] === 5 && ($ripleypos != $alienpos || $ripleypos != $alienpos2 || $ripleypos != $alienpos3)) {
 
         echo "<div style=\"color: #0063dc; font-size: 20px; text-align:center;\">YOU ESCAPED! New Game start by click!<div>";
 
@@ -56,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($ripleypos != $_POST['alter']) {
         $_SESSION["ripleypos"] = $ripleypos = $_POST['alter'];
 
-    }
+    }*/
 }
 
 ?>
@@ -64,18 +63,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <form method="post">
     <table>
         <?php
-        var_dump($ripleypos, $alienpos);
+
         for ($height = 0; $height < HEIGHT; $height++) {
             echo "<tr>";
             for ($width = 0; $width < WIDTH; $width++) {
 
                 if ($ripleypos["x"] == $width && $ripleypos["y"] == $height) {
-
                     echo "<td style=\"border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;\"><img src=\"$ripley\"/></td>" . PHP_EOL;
-
                 }
+              /*  elseif($alienpos["x"] == $width && $alienpos["y"] == $height && $ripleypos["x"] != $alienpos["x"] && $ripleypos["y"] != $alienpos["y"]) {
+                    echo "<td style=\"border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;\"><img src=\"$alien\"/></td>" . PHP_EOL;
+                }
+                elseif($alienpos2["x"] == $width && $alienpos2["y"] == $height) {
+                    echo "<td style=\"border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;\"><img src=\"$alien\"/></td>" . PHP_EOL;
+                }
+                elseif($alienpos3["x"] == $width && $alienpos3["y"] == $height) {
+                    echo "<td style=\"border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;\"><img src=\"$alien\"/></td>" . PHP_EOL;
+                }*/
                 else {
-                    echo "<td style=\"border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;\"></td>" . PHP_EOL;
+                    echo "<td style=\"border: 1px solid #0063dc;height: 55px; width: 55px; text-align: center; border-radius: 5px;\"><input style='height: 49px; width: 49px; background:white; border:0 none; cursor:pointer;' value='$height.$width' type=\"submit\" name=\"alter\" /></td>" ;
                 }
 
 
@@ -113,4 +119,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </form>
 </body>
 
-</ht
+</html>
