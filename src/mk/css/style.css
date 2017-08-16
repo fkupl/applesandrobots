@@ -1,0 +1,54 @@
+body {
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+
+.center {
+    width: 100%;
+    height: 100%;
+}
+
+table {
+    margin: 0 auto; /* or margin: 0 auto 0 auto */
+}
+
+.tdstyle {
+    border: 1px solid #0063dc;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    border-radius: 5px;
+
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    /* ...and now for the proper property */
+    transition:.5s;
+}
+
+.inputstyle {
+    height: 49px;
+    width: 49px;
+    background: black;
+    border: 0 none;
+    cursor: pointer;
+}
+
+.tdstyle:hover {
+    border-color: #34cdff;
+
+}
+
+.winner {
+    color: #0063dc;
+    font-size: 20px;
+    text-align: center;
+}
+
+.loser {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
