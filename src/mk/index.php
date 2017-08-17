@@ -1,8 +1,8 @@
 <?php session_start();
 
 /** Changeable game settings */
-const WIDTH = 8;
-const HEIGHT = 8;
+const WIDTH = 9;
+const HEIGHT = 9;
 const COUNT_OF_ALIENS = 3;
 const COUNT_OF_LIVES = 3;
 const COUNT_OF_STEPS = 10;
@@ -10,16 +10,19 @@ const COUNT_OF_STEPS = 10;
 /** Design resources */
 $alien_img = 'resources/alien.png';
 $ripley_img = 'resources/ripley.png';
+$died_img = 'resources/died.png';
 
 
 /** Set Ripley's and Alien's first position, if there is not session entry) */
 if (!isset($_SESSION["ripleypos"])) {
     $_SESSION["ripleyLives"] = COUNT_OF_LIVES;
-    $_SESSION["ripleypos"] = $ripleyPos = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
     $_SESSION["runningCounter"] = 0;
     $_SESSION["ID"] = session_id();
 
-    // Create Aliens
+    /** Create Ripley */
+    $_SESSION["ripleypos"] = $ripleyPos = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
+
+    /** Create Aliens */
     for ($alienCounter = 0; $alienCounter < COUNT_OF_ALIENS; $alienCounter++) {
         $aliens[$alienCounter]["alien"] = 'Alien ' . $alienCounter;
         $aliens[$alienCounter]["x"] = rand(0, WIDTH);
@@ -32,7 +35,6 @@ if (!isset($_SESSION["ripleypos"])) {
 /** Positions */
 $ripleyPos = $_SESSION["ripleypos"];
 $aliens = $_SESSION["alienpositions"];
-
 
 /**  Movement  */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -107,7 +109,6 @@ function playerWon()
 function playerDied()
 {
     echo "<div class=\"loser\">YOU DIED! New Game start by click!<div>";
-    $_SESSION["ripleyLives"] = 0;
     resetGame();
 }
 
@@ -119,9 +120,17 @@ function resetGame()
     $_SESSION["NEWID"] = session_id();
     $_SESSION["ripleypos"] = null;
     $_SESSION["alienpositions"] = null;
-
 }
 
+/** Render live counter */
+function liveCounter($ripley_img, $died_img)
+{
+    if ($_SESSION["ripleyLives"] == 0) {
+        echo "<img src=\"$died_img\"/><br/>" . $_SESSION["ripleyLives"] . " X";
+    } else {
+        echo "<img src=\"$ripley_img\"/><br/>" . $_SESSION["ripleyLives"] . " X";
+    }
+}
 
 ?>
 <html>
@@ -132,7 +141,7 @@ function resetGame()
 <div><img src="resources/aliens.png"</div>
 
 <div class="center">
-    <div><?php echo "<img src=\"$ripley_img\"/>:" . $_SESSION["ripleyLives"] . " X" ?></div>
+    <div class="lives"><?php liveCounter($ripley_img, $died_img); ?></div>
     <form method="post">
         <table>
             <?php
