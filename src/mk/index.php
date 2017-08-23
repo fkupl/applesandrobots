@@ -23,6 +23,7 @@ if (!isset($_SESSION["ripleypos"])) {
     $_SESSION["ripleypos"] = $ripleyPos = array("x" => rand(0, WIDTH), "y" => rand(0, HEIGHT));
 
     /** Create Aliens */
+    $aliens = array();
     for ($alienCounter = 0; $alienCounter < COUNT_OF_ALIENS; $alienCounter++) {
         $aliens[$alienCounter]["alien"] = 'Alien ' . $alienCounter;
         $aliens[$alienCounter]["x"] = rand(0, WIDTH);
@@ -44,52 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $position = explode(".", $_POST['position']);
 
     /** Ripley's Movement */
-    if ($ripleyPos["x"] < $position[0]) {
-        $ripleyPos["x"] = $position[0];
-        $_SESSION["ripleypos"] = $ripleyPos;
-    }
-    if ($ripleyPos["x"] > $position[0]) {
-        $ripleyPos["x"] = $position[0];
-        $_SESSION["ripleypos"] = $ripleyPos;
-    }
-
-    if ($ripleyPos["y"] > $position[1]) {
-        $ripleyPos["y"] = $position[1];
-        $_SESSION["ripleypos"] = $ripleyPos;
-    }
-    if ($ripleyPos["y"] < $position[1]) {
-        $ripleyPos["y"] = $position[1];
-        $_SESSION["ripleypos"] = $ripleyPos;
-    }
+    movementRipley($ripleyPos, $position);
 
     /** Aliens movements */
-    foreach ($aliens as $key => $value) {
-        if ($ripleyPos["x"] < $aliens[$key]["x"]) {
-            $aliens[$key]["x"]--;
-        }
-        if ($ripleyPos["x"] > $aliens[$key]["x"]) {
-            $aliens[$key]["x"]++;
-        }
-        if ($ripleyPos["y"] < $aliens[$key]["y"]) {
-            $aliens[$key]["y"]--;
-        }
-        if ($ripleyPos["y"] > $aliens[$key]["y"]) {
-            $aliens[$key]["y"]++;
-        }
-
-        /** Check if Ripley and Aliens positions are the same, remove Alien and one hearth - perhaps Ripley is dead now */
-        if ($aliens[$key]["x"] == $ripleyPos["x"] && $aliens[$key]["y"] == $ripleyPos["y"]) {
-            $_SESSION["ripleyLives"] = $_SESSION["ripleyLives"] - 1;
-            unset($aliens[$key]);
-
-            if ($_SESSION["ripleyLives"] == 0) {
-                playerDied();
-            }
-        }
-
-        $_SESSION["alienpositions"] = $aliens;
-
-    }
+    movementAliens($aliens, $ripleyPos);
 
     /** Check if Ripley reached the COUNT_OF_STEPS */
     if ($_SESSION["runningCounter"] === COUNT_OF_STEPS && $_SESSION["ripleyLives"] > 0) {
@@ -129,6 +88,58 @@ function liveCounter($ripley_img, $died_img)
         echo "<img src=\"$died_img\"/><br/>" . $_SESSION["ripleyLives"] . " X";
     } else {
         echo "<img src=\"$ripley_img\"/><br/>" . $_SESSION["ripleyLives"] . " X";
+    }
+}
+
+function movementRipley(&$ripleyPos, &$position)
+{
+    if ($ripleyPos["x"] < $position[0]) {
+        $ripleyPos["x"] = $position[0];
+        $_SESSION["ripleypos"] = $ripleyPos;
+    }
+    if ($ripleyPos["x"] > $position[0]) {
+        $ripleyPos["x"] = $position[0];
+        $_SESSION["ripleypos"] = $ripleyPos;
+    }
+
+    if ($ripleyPos["y"] > $position[1]) {
+        $ripleyPos["y"] = $position[1];
+        $_SESSION["ripleypos"] = $ripleyPos;
+    }
+    if ($ripleyPos["y"] < $position[1]) {
+        $ripleyPos["y"] = $position[1];
+        $_SESSION["ripleypos"] = $ripleyPos;
+    }
+}
+
+function movementAliens(&$aliens, $ripleyPos)
+{
+    foreach ($aliens as $key => $value) {
+        if ($ripleyPos["x"] < $aliens[$key]["x"]) {
+            $aliens[$key]["x"]--;
+        }
+        if ($ripleyPos["x"] > $aliens[$key]["x"]) {
+            $aliens[$key]["x"]++;
+        }
+        if ($ripleyPos["y"] < $aliens[$key]["y"]) {
+            $aliens[$key]["y"]--;
+        }
+        if ($ripleyPos["y"] > $aliens[$key]["y"]) {
+            $aliens[$key]["y"]++;
+        }
+
+        /** Check if Ripley and Aliens positions are the same, remove Alien and one hearth - perhaps Ripley is dead now */
+        if ($aliens[$key]["x"] == $ripleyPos["x"] && $aliens[$key]["y"] == $ripleyPos["y"]) {
+            $_SESSION["ripleyLives"] = $_SESSION["ripleyLives"] - 1;
+            unset($aliens[$key]);
+
+            if ($_SESSION["ripleyLives"] == 0) {
+                playerDied();
+            }
+        }
+
+        $_SESSION["alienpositions"] = $aliens;
+
     }
 }
 
