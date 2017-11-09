@@ -37,5 +37,5 @@ COPY src/ /var/www/html/
 #TODO: Talk with TE whether GOCD can replace this during continous deployment
 #ENV DEV=1
 
-EXPOSE 8080
+EXPOSE 80
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
