@@ -25,7 +25,7 @@
         <li>FK is available for questions every workday between 09:00-09:50</li>
         <li>Each friday we'll meet at 09:00 SHARP!(timeslot has to be discussed) and check together what solutions where found during the week, which lessons where learned and based on the findings, we make a rough plan for the upcoming week. Keep in mind: This is 100% timeboxed. We won't start until everyone is available, but we will stop at 10:00h anyway. Less time due to late colleagues, results in less time for discussions about findings and next steps.</li>
     </ul>
-    test
+    
 </div>
 </body>
 </html>
